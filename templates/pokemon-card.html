@@ -1,4 +1,5 @@
-<div ng-repeat="pokemon in $ctrl.pokemonList">
-	<img ng-src="{{pokemon.image}}">
-	{{pokemon.name}}
+<div ng-if="$ctrl.currentPokemon">
+	<img ng-src="{{$ctrl.currentPokemon.imageUrl}}">
+	{{$ctrl.currentPokemon.pokemonName}}
+	<a ng-click="$ctrl.pokemonIndex.updateIndex()">Submit</a>
 </div>

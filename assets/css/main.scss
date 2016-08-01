@@ -1,0 +1,36 @@
+.pokemon {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-size: 18px;
+	text-align: center;
+	width: 14em;
+	padding: 2em;
+	border: 1px solid #000;
+
+	.photo {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		flex: 0 0 18em;
+		padding: 0 1em;
+		border: 1px solid #000;
+
+		img {
+			width: 12em;
+		}
+	}
+
+	input[type="text"] {
+		font-size: 1.3em;
+		padding: .382em .618em;
+		margin: 1em 0 .382em;
+	}
+
+	.button {
+		line-height: 1.618em;
+		color: #2B54AA;
+		background-color: #FFCB08;
+		border: 2px solid #2B54AA;
+	}
+}

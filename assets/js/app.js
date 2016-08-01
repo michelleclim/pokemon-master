@@ -3,22 +3,29 @@
 
 	var app = angular.module('pokemon-app', []);
 
-	app.service('pokemonDataService', ['$http', '$q', function($http, $q){
+	app.service('pokemonDataService', ['$http', function($http){
 		var self = this;
+		var pokemonData = [];
 		var pokemonList = [];
 		var generatePokemon = generatePokemon;
 
 		$http.get('/src/pokemon-with-images.json')
 			.then(function(response){
 				self.data = response.data.body;
+				for (const value of self.data) {
+					if (value.nationalPokedexNumber <= 150) {
+						pokemonData.push(value);
+					}
+				}
+
 				for (var i = 0; i < 20; i++) {
 					generatePokemon();
 				}
 			});
 
 		function generatePokemon () {
-			var pokeId = Math.floor(Math.random()*150) + 1;
-			pokemonList.push(self.data[pokeId]);
+			var pokeId = Math.floor(Math.random()*149) + 1;
+			pokemonList.push(pokemonData[pokeId]);
 		}
 
 		return pokemonList;
@@ -30,6 +37,7 @@
 
 		function updateIndex () {
 			this.index++;
+			console.log(this.index);
 		}
 	});
 
@@ -39,9 +47,16 @@
 			var self = this;
 			self.pokemonList = pokemonDataService;
 			self.pokemonIndex = pokemonIndex;
-			self.currentPokemon = self.pokemonList[self.pokemonIndex.index];
+			self.index = 0;
 
-			$timeout(function(){self.currentPokemon = self.pokemonList[0];}, 2000);
+			self.updateIndex = updateIndex;
+
+			function updateIndex() {
+				self.index++;
+				self.currentPokemon = self.pokemonList[self.index];
+			}
+
+			$timeout(function(){updateIndex(); console.log(self.pokemonList)}, 100);
 
 		}]
 	});

@@ -577,7 +577,7 @@
         },
         {
             "imageUrl": "https://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/2.jpeg",
-            "pokemonName": "Calsaur",
+            "pokemonName": "Ivysaur",
             "nationalPokedexNumber": "2"
         },
         {
@@ -1247,7 +1247,7 @@
         },
         {
             "imageUrl": "https://s3-eu-west-1.amazonaws.com/calpaterson-pokemon/32.jpeg",
-            "pokemonName": "Nidoran\u2642",
+            "pokemonName": "Nidorano",
             "nationalPokedexNumber": "32"
         },
         {

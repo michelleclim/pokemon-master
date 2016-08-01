@@ -1,5 +1,7 @@
-<div ng-if="$ctrl.currentPokemon">
-	<img ng-src="{{$ctrl.currentPokemon.imageUrl}}">
-	{{$ctrl.currentPokemon.pokemonName}}
-	<a ng-click="$ctrl.pokemonIndex.updateIndex()">Submit</a>
+<div ng-if="$ctrl.currentPokemon" class="pokemon">
+	<div class="photo">
+		<img ng-src="{{$ctrl.currentPokemon.imageUrl}}">
+	</div>
+	<input type="text" ng-model="$ctrl.currentPokemon.pokemonName">
+	<a class="button" ng-click="$ctrl.updateIndex()">Submit</a>
 </div>

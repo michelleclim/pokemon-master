@@ -1,7 +1,20 @@
 (function(angular){
 	'use strict';
 
-	var app = angular.module('pokemon-app', []);
+	var app = angular.module('pokemon-app', ['ui.router']);
+
+	app.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+		$urlRouterProvider.otherwise('/pokemon');
+		$stateProvider
+			.state('pokemon', {
+				url: '/pokemon',
+				template: '<pokemon-card></pokemon-card>'
+			})
+			.state('results', {
+				url: '/results',
+				template: ''
+			})
+	}]);
 
 	app.service('pokemonDataService', ['$http', function($http){
 		var self = this;
@@ -37,26 +50,45 @@
 
 		function updateIndex () {
 			this.index++;
-			console.log(this.index);
+		}
+	});
+
+	app.service('pokemonCardData', function(){
+		return {
+			data: []
 		}
 	});
 
 	app.component('pokemonCard', {
 		templateUrl: 'templates/pokemon-card.html',
-		controller: ['pokemonDataService', 'pokemonIndex', '$timeout', function(pokemonDataService, pokemonIndex, $timeout) {
+		controller: ['pokemonDataService', 'pokemonCardData', '$timeout', function(pokemonDataService, pokemonCardData, $timeout) {
 			var self = this;
 			self.pokemonList = pokemonDataService;
-			self.pokemonIndex = pokemonIndex;
+			self.pokemonCard = pokemonCardData.data;
 			self.index = 0;
+			self.response = '';
 
 			self.updateIndex = updateIndex;
+			self.submitResponse = submitResponse;
 
 			function updateIndex() {
 				self.index++;
 				self.currentPokemon = self.pokemonList[self.index];
+				self.response = '';
 			}
 
-			$timeout(function(){updateIndex(); console.log(self.pokemonList)}, 100);
+			function submitResponse() {
+				self.pokemonCard.push({
+					nameKey: self.currentPokemon.pokemonName.toLowerCase(),
+					imageUrl: self.currentPokemon.imageUrl,
+					pokedexNumber: self.currentPokemon.nationalPokedexNumber,
+					response: self.response.toLowerCase()
+				});
+				updateIndex();
+				console.log(self.pokemonCard);
+			}
+
+			$timeout(function(){updateIndex();}, 100);
 
 		}]
 	});

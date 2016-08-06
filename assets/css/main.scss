@@ -34,3 +34,33 @@
 		border: 2px solid #2B54AA;
 	}
 }
+
+.answer-key {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+
+	.question {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: .382em;
+
+		.thumbnail {
+			flex: 0 0 20%;
+			border: 2px solid red;
+
+			&.correct {
+				border: 2px solid green;
+			}
+		}
+
+		.name-key {
+			flex: 0 0 40%;
+		}
+
+		.response {
+			flex: 0 0 40%;
+		}
+	}
+}

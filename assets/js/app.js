@@ -12,7 +12,9 @@
 			})
 			.state('results', {
 				url: '/results',
-				template: ''
+				templateUrl: 'templates/results.html',
+				controller: 'resultsCtrl',
+				controllerAs: 'results'
 			})
 	}]);
 
@@ -20,21 +22,26 @@
 		var self = this;
 		var pokemonData = [];
 		var pokemonList = [];
+		var getPokemon = getPokemon;
 		var generatePokemon = generatePokemon;
 
 		$http.get('/src/pokemon-with-images.json')
 			.then(function(response){
 				self.data = response.data.body;
-				for (const value of self.data) {
-					if (value.nationalPokedexNumber <= 150) {
-						pokemonData.push(value);
-					}
-				}
-
-				for (var i = 0; i < 20; i++) {
-					generatePokemon();
-				}
+				getPokemon();
 			});
+
+		function getPokemon() {
+			for (const value of self.data) {
+				if (value.nationalPokedexNumber <= 150) {
+					pokemonData.push(value);
+				}
+			}
+
+			for (var i = 0; i <= 5; i++) {
+				generatePokemon();
+			}
+		}
 
 		function generatePokemon () {
 			var pokeId = Math.floor(Math.random()*149) + 1;
@@ -59,36 +66,67 @@
 		}
 	});
 
+	app.controller('resultsCtrl', ['pokemonCardData', 'pokemonDataService', '$state', '$window', function(pokemonCardData, pokemonDataService, $state, $window) {
+		var self = this;
+		self.pokemon = pokemonCardData.data;
+		self.pokemonDataService = pokemonDataService;
+		self.replay = replay;
+
+		function replay() {
+			$state.go('pokemon');
+			$window.location.reload();
+		}
+
+	}]);
+
 	app.component('pokemonCard', {
-		templateUrl: 'templates/pokemon-card.html',
-		controller: ['pokemonDataService', 'pokemonCardData', '$timeout', function(pokemonDataService, pokemonCardData, $timeout) {
-			var self = this;
-			self.pokemonList = pokemonDataService;
-			self.pokemonCard = pokemonCardData.data;
-			self.index = 0;
-			self.response = '';
-
-			self.updateIndex = updateIndex;
-			self.submitResponse = submitResponse;
-
-			function updateIndex() {
-				self.index++;
-				self.currentPokemon = self.pokemonList[self.index];
+		templateUrl: 'components/pokemon-card.html',
+		controller: [
+			'pokemonDataService', 
+			'pokemonCardData', 
+			'$state', 
+			'$timeout', 
+			function(
+				pokemonDataService, 
+				pokemonCardData, 
+				$state, 
+				$timeout
+			) {
+				var self = this;
+				self.pokemonList = pokemonDataService;
+				self.pokemonCard = pokemonCardData.data;
+				self.index = 0;
 				self.response = '';
-			}
 
-			function submitResponse() {
-				self.pokemonCard.push({
-					nameKey: self.currentPokemon.pokemonName.toLowerCase(),
-					imageUrl: self.currentPokemon.imageUrl,
-					pokedexNumber: self.currentPokemon.nationalPokedexNumber,
-					response: self.response.toLowerCase()
-				});
-				updateIndex();
-				console.log(self.pokemonCard);
-			}
+				self.updateIndex = updateIndex;
+				self.submitResponse = submitResponse;
+				self.checkProgress = checkProgress;
 
-			$timeout(function(){updateIndex();}, 100);
+				function updateIndex() {
+					self.index++;
+					self.currentPokemon = self.pokemonList[self.index];
+					self.response = '';
+				}
+
+				function submitResponse() {
+					self.pokemonCard.push({
+						nameKey: self.currentPokemon.pokemonName.toLowerCase(),
+						imageUrl: self.currentPokemon.imageUrl,
+						pokedexNumber: self.currentPokemon.nationalPokedexNumber,
+						response: self.response.toLowerCase()
+					});
+					updateIndex();
+					checkProgress();
+					console.log(self.pokemonCard);
+				}
+
+				function checkProgress() {
+					if (self.index > 5) {
+						$state.go('results');
+					}
+				}
+
+				$timeout(function(){updateIndex();}, 100);
 
 		}]
 	});

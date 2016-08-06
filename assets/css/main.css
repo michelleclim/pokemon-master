@@ -26,4 +26,23 @@
     background-color: #FFCB08;
     border: 2px solid #2B54AA; }
 
+.answer-key {
+  display: flex;
+  flex-direction: column;
+  text-align: center; }
+  .answer-key .question {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: .382em; }
+    .answer-key .question .thumbnail {
+      flex: 0 0 20%;
+      border: 2px solid red; }
+      .answer-key .question .thumbnail.correct {
+        border: 2px solid green; }
+    .answer-key .question .name-key {
+      flex: 0 0 40%; }
+    .answer-key .question .response {
+      flex: 0 0 40%; }
+
 /*# sourceMappingURL=main.css.map */

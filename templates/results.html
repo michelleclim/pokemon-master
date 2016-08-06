@@ -1,0 +1,12 @@
+
+<section class="answer-key">
+	<div class="question" ng-repeat="pokemon in results.pokemon">
+		<div class="thumbnail" ng-class="{correct: pokemon.nameKey === pokemon.response}">
+			<img ng-src="{{pokemon.imageUrl}}">
+		</div>
+		<div class="name-key">{{pokemon.nameKey}}</div>
+		<div class="response">{{pokemon.response}}</div>
+	</div>
+</section>
+
+<a class="button" ng-click="results.replay()">Play again?</a>

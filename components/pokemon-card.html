@@ -2,6 +2,8 @@
 	<div class="photo"> 
 		<img ng-src="{{$ctrl.currentPokemon.imageUrl}}">
 	</div>
-	<input type="text" ng-model="$ctrl.response">
+	<input type="text" 
+		ng-model="$ctrl.response" 
+		ng-keyup="$event.keyCode == 13 && $ctrl.submitResponse()">
 	<a class="button" ng-click="$ctrl.submitResponse()">Submit</a>
 </div>

@@ -68,9 +68,44 @@
 
 	app.controller('resultsCtrl', ['pokemonCardData', 'pokemonDataService', '$state', '$window', function(pokemonCardData, pokemonDataService, $state, $window) {
 		var self = this;
+		self.totalScore = 0;
+		self.pokemonLevel = '';
 		self.pokemon = pokemonCardData.data;
 		self.pokemonDataService = pokemonDataService;
+		self.countScore = countScore;
+		self.checkPokemonLevel = checkPokemonLevel;
 		self.replay = replay;
+
+		countScore();
+		checkPokemonLevel();
+
+		function countScore() {
+
+			for (var i = 0; i < self.pokemon.length; i++) {
+				if (self.pokemon[i].nameKey === self.pokemon[i].response) {
+					self.totalScore++;
+				}
+			}
+
+			return self.totalScore;
+		}
+
+		function checkPokemonLevel() {
+			switch (true) {
+				case (self.totalScore < 5):
+					self.pokemonLevel = 'noob';
+					break;
+				case (self.totalScore < 7):
+					self.pokemonLevel = 'novice';
+					break;
+				case (self.totalScore < 9):
+					self.pokemonLevel = 'trainer';
+					break;
+				default:
+					self.pokemonLevel = 'master';
+					break;
+			}
+		}
 
 		function replay() {
 			$state.go('pokemon');
@@ -117,7 +152,6 @@
 					});
 					updateIndex();
 					checkProgress();
-					console.log(self.pokemonCard);
 				}
 
 				function checkProgress() {
@@ -126,7 +160,7 @@
 					}
 				}
 
-				$timeout(function(){updateIndex();}, 100);
+				$timeout(function(){updateIndex();}, 300);
 
 		}]
 	});

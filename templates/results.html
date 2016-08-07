@@ -1,12 +1,14 @@
 
 <section class="answer-key">
-	<div class="question" ng-repeat="pokemon in results.pokemon">
-		<div class="thumbnail" ng-class="{correct: pokemon.nameKey === pokemon.response}">
+	<div class="question" ng-repeat="pokemon in results.pokemon" ng-class="{correct: pokemon.nameKey === pokemon.response}">
+		<div class="thumbnail">
 			<img ng-src="{{pokemon.imageUrl}}">
 		</div>
-		<div class="name-key">{{pokemon.nameKey}}</div>
 		<div class="response">{{pokemon.response}}</div>
+		<div class="name-key">{{pokemon.nameKey}}</div>
 	</div>
 </section>
+<div> Total: {{results.totalScore}}/{{results.pokemon.length}}</div>
+<p>You are a Pokemon {{results.pokemonLevel}}!</p>
 
-<a class="button" ng-click="results.replay()">Play again?</a>
+<a class="button" ng-click="results.replay()">Replay</a>

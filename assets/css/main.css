@@ -1,9 +1,12 @@
+@font-face {
+  font-family: 'PokemonGB';
+  src: url(../fonts/PokemonGB.ttf); }
 body {
-  max-width: 40em;
-  margin: 0 auto; }
+  font-family: 'PokemonGB'; }
   body .button {
     border: 1px solid #555;
-    padding: .382em 2em; }
+    padding: .382em 2em;
+    text-decoration: none; }
     body .button:hover {
       cursor: pointer;
       background-color: #F7F7F7; }
@@ -23,7 +26,8 @@ body {
     justify-content: center;
     flex: 0 0 18em;
     padding: 0 1em;
-    border: 1px solid #000; }
+    border: 1px solid #000;
+    background-color: #fff; }
     .pokemon .photo img {
       width: 12em; }
   .pokemon input[type="text"] {
@@ -36,38 +40,38 @@ body {
     background-color: #FFCB08;
     border: 2px solid #2B54AA; }
 
-.answer-key {
+.results {
   display: flex;
   flex-direction: column;
   text-align: center;
   padding-bottom: .382em;
   border-bottom: 2px solid #555;
   font-size: 18px; }
-  .answer-key .question {
+  .results .question {
     display: flex;
     flex-direction: column;
     align-items: center;
     border-bottom: 1px solid #ccc;
     border-left: 1em solid #B7403A; }
-    .answer-key .question:last-of-type {
+    .results .question:last-of-type {
       border-bottom: 0; }
     @media only screen and (min-width: 321px) {
-      .answer-key .question {
+      .results .question {
         flex-direction: row; } }
-    .answer-key .question.correct {
+    .results .question.correct {
       border-left: 1em solid #0C6B30; }
-      .answer-key .question.correct .response {
+      .results .question.correct .response {
         text-decoration: none; }
-    .answer-key .question .thumbnail {
+    .results .question .thumbnail {
       flex: 1 0 3em; }
       @media only screen and (min-width: 321px) {
-        .answer-key .question .thumbnail {
+        .results .question .thumbnail {
           flex: 1 0 7em; } }
-      .answer-key .question .thumbnail img {
+      .results .question .thumbnail img {
         height: 3em; }
-    .answer-key .question .name-key {
+    .results .question .name-key {
       flex: 0 0 40%; }
-    .answer-key .question .response {
+    .results .question .response {
       flex: 0 0 40%;
       text-decoration: line-through; }
 

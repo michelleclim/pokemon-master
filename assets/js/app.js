@@ -4,8 +4,12 @@
 	var app = angular.module('pokemon-app', ['ui.router']);
 
 	app.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/pokemon');
+		$urlRouterProvider.otherwise('/home');
 		$stateProvider
+			.state('home', {
+				url: '/home',
+				templateUrl: 'templates/main.html'
+			})
 			.state('pokemon', {
 				url: '/pokemon',
 				template: '<pokemon-card></pokemon-card>'

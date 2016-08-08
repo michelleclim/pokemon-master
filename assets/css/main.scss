@@ -1,10 +1,15 @@
+@font-face {
+	font-family: 'PokemonGB';
+	src: url(../fonts/PokemonGB.ttf);
+}
+
 body {
-	max-width: 40em;
-	margin: 0 auto;
+	font-family: 'PokemonGB';
 
 	.button {
 		border: 1px solid #555;
 		padding: .382em 2em;
+		text-decoration: none;
 		&:hover {
 			cursor: pointer;
 			background-color: #F7F7F7;
@@ -29,6 +34,7 @@ body {
 		flex: 0 0 18em;
 		padding: 0 1em;
 		border: 1px solid #000;
+		background-color: #fff;
 
 		img {
 			width: 12em;
@@ -49,7 +55,7 @@ body {
 	}
 }
 
-.answer-key {
+.results {
 	display: flex;
 	flex-direction: column;
 	text-align: center;

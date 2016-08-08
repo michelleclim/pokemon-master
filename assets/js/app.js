@@ -42,7 +42,7 @@
 				}
 			}
 
-			for (var i = 0; i <= 5; i++) {
+			for (var i = 0; i < 10; i++) {
 				generatePokemon();
 			}
 		}
@@ -54,15 +54,6 @@
 
 		return pokemonList;
 	}]);
-
-	app.service('pokemonIndex', function(){
-		this.index = 0;
-		this.updateIndex = updateIndex;
-
-		function updateIndex () {
-			this.index++;
-		}
-	});
 
 	app.service('pokemonCardData', function(){
 		return {
@@ -87,7 +78,7 @@
 
 			for (var i = 0; i < self.pokemon.length; i++) {
 				if (self.pokemon[i].nameKey === self.pokemon[i].response) {
-					self.totalScore++;
+					self.totalScore+=10;
 				}
 			}
 
@@ -96,13 +87,13 @@
 
 		function checkPokemonLevel() {
 			switch (true) {
-				case (self.totalScore < 5):
+				case (self.totalScore < 50):
 					self.pokemonLevel = 'noob';
 					break;
-				case (self.totalScore < 7):
+				case (self.totalScore < 70):
 					self.pokemonLevel = 'novice';
 					break;
-				case (self.totalScore < 9):
+				case (self.totalScore < 90):
 					self.pokemonLevel = 'trainer';
 					break;
 				default:
@@ -142,9 +133,9 @@
 				self.checkProgress = checkProgress;
 
 				function updateIndex() {
-					self.index++;
 					self.currentPokemon = self.pokemonList[self.index];
 					self.response = '';
+					self.index++;
 				}
 
 				function submitResponse() {
@@ -159,12 +150,12 @@
 				}
 
 				function checkProgress() {
-					if (self.index > 5) {
+					if (self.index > 10) {
 						$state.go('results');
 					}
 				}
 
-				$timeout(function(){updateIndex();}, 300);
+				$timeout(function(){updateIndex();}, 500);
 
 		}]
 	});

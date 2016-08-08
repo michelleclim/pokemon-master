@@ -4,107 +4,194 @@
 }
 
 body {
+	color: #000;
 	font-family: 'PokemonGB';
+	background-color: #7CC0D6;
 
-	.button {
-		border: 1px solid #555;
-		padding: .382em 2em;
-		text-decoration: none;
-		&:hover {
-			cursor: pointer;
-			background-color: #F7F7F7;
+	.view {
+		max-width: 800px;
+		margin: 2em auto;
+
+		.main {
+			text-align: center;
+
+			.logo {
+				width: 100%;
+				margin: 1em 0 2em 0;
+			}
+
+			.start {
+				margin-top: 2em;
+			}
+		}
+
+		.button {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+			border: 2px solid #555;
+			padding: .382em 1em;
+			text-decoration: none;
+			background-color: #fff;
+			max-width: 10em;
+			margin: 0 auto;
+
+				img {
+					width: 3em;
+					height: 3em;
+				}
+
+			&:hover {
+				cursor: pointer;
+				background-color: #F7F7F7;
+			}
+
+			&:active {
+				color: red;
+			}
+
+			&.submit {
+				max-width: 100%;
+			}
 		}
 	}
-}
 
-.pokemon {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	font-size: 18px;
-	text-align: center;
-	width: 14em;
-	padding: 2em;
-	border: 1px solid #000;
-
-	.photo {
+	.pokemon {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		flex: 0 0 18em;
-		padding: 0 1em;
-		border: 1px solid #000;
-		background-color: #fff;
+		font-size: 18px;
+		text-align: center;
+		width: 14em;
+		padding: 2em;
+		border: 10px solid #103D7E;
+		border-radius: 5px;
+		background-color: #3663AD;
+		margin: 0 auto;
 
-		img {
-			width: 12em;
-		}
-	}
-
-	input[type="text"] {
-		font-size: 1.3em;
-		padding: .382em .618em;
-		margin: 1em 0 .382em;
-	}
-
-	.button {
-		line-height: 1.618em;
-		color: #2B54AA;
-		background-color: #FFCB08;
-		border: 2px solid #2B54AA;
-	}
-}
-
-.results {
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	padding-bottom: .382em;
-	border-bottom: 2px solid #555;
-
-	font-size: 18px;
-
-	.question {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		border-bottom: 1px solid #ccc;
-		border-left: 1em solid #B7403A;
-
-		&:last-of-type {
-			border-bottom: 0;
+		.progress {
+			color: #FFCB08;
+			align-self: flex-end;
 		}
 
-		@media only screen and (min-width: 321px) {
-			flex-direction: row;
-		}
-
-		&.correct {
-			border-left: 1em solid #0C6B30;
-			.response {
-				text-decoration: none;
-			}
-		}
-
-		.thumbnail {
-			flex: 1 0 3em;
-
-			@media only screen and (min-width: 321px) {
-				flex: 1 0 7em;
-			}
+		.photo {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			flex: 0 0 18em;
+			padding: 0 1em;
+			border: 3px solid #103D7E;
+			background-color: #fff;
 
 			img {
-				height: 3em;
+				width: 12em;
 			}
 		}
 
-		.name-key {
-			flex: 0 0 40%;
+		input[type="text"] {
+			font-size: 1.3em;
+			padding: .382em .618em;
+			margin: 1em 0 .382em;
+			border-color: #103D7E;
 		}
 
-		.response {
-			flex: 0 0 40%;
-			text-decoration: line-through;
+		.button {
+			line-height: 1.618em;
+			color: #2B54AA;
+			background-color: #FFCB08;
+			border: 2px solid #2B54AA;
+
+			&:hover {
+				background-color: #f2bf09;
+			}
 		}
 	}
+
+	.story-text {
+		border: 3px solid #5F7077;
+		background-color: #fff;
+		padding: .382em .618em;
+		margin-bottom: 1em;
+	}
+
+	.results {
+		display: flex;
+		flex-direction: column;
+		text-transform: uppercase;
+		color: #fff;
+		text-shadow: 1px 1px 1px #5F7077;
+
+		.question {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			background-color: #3191D3;
+			border: 2px solid #4B5065;
+			border-radius: 6px;
+			padding: 0 1em;
+			margin-bottom: .382em;
+
+			.thumbnail {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				flex: 0 0 15%;
+				margin-right: 5%;
+				background-color: #fff;
+				img {
+					height: 3em;
+				}
+			}
+
+			.name {
+				flex: 0 0 40%;
+				.name-key {
+					line-height: 1.618em;
+				}
+				.response {
+					font-size: .87em;
+					margin-left: 1em;
+				}
+			}
+
+			.hp {
+				flex: 0 0 40%;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+
+				.level {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					color: #FAC35F;
+					background-color: #5F7077;
+					width: 100%;
+					padding: 3px;
+					margin-bottom: .3em;
+					border-radius: 6px;
+
+					.bar {
+						flex: 1 1 auto;
+						background-color: #4BD78F;
+						height: 12px;
+						border-radius: 4px;
+					}
+				}
+			}
+
+			&.incorrect {
+				.response {
+					text-decoration: line-through;
+				}
+				.level {
+					.bar {
+						background-color: #B43E15;
+					}
+				}
+			}
+		}
+	}
+
 }

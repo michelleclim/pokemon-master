@@ -34,6 +34,9 @@ body {
         background-color: #F7F7F7; }
       body .view .button:active {
         color: red; }
+      body .view .button.replay {
+        width: 10em;
+        color: #000; }
       body .view .button.submit {
         max-width: 100%; }
   body .pokemon {
@@ -74,6 +77,7 @@ body {
       body .pokemon .button:hover {
         background-color: #f2bf09; }
   body .story-text {
+    color: #000;
     border: 3px solid #5F7077;
     background-color: #fff;
     padding: .382em .618em;

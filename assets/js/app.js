@@ -26,17 +26,16 @@
 		var self = this;
 		var pokemonData = [];
 		var pokemonList = [];
+		var getPokemonData = getPokemonData;
 		var getPokemon = getPokemon;
 		var generatePokemon = generatePokemon;
 
-		$http.get('/src/pokemon-with-images.json')
-			.then(function(response){
-				self.data = response.data.body;
-				getPokemon();
-			});
+		function getPokemonData() {
+			return $http.get('/src/pokemon-with-images.json');
+		}
 
-		function getPokemon() {
-			for (const value of self.data) {
+		function getPokemon(data) {
+			for (const value of data) {
 				if (value.nationalPokedexNumber <= 150) {
 					pokemonData.push(value);
 				}
@@ -45,6 +44,8 @@
 			for (var i = 0; i < 10; i++) {
 				generatePokemon();
 			}
+
+			return pokemonList;
 		}
 
 		function generatePokemon () {
@@ -52,7 +53,10 @@
 			pokemonList.push(pokemonData[pokeId]);
 		}
 
-		return pokemonList;
+		return {
+			getPokemonData: getPokemonData,
+			getPokemon: getPokemon
+		};
 	}]);
 
 	app.service('pokemonCardData', function(){
@@ -123,14 +127,24 @@
 				$timeout
 			) {
 				var self = this;
-				self.pokemonList = pokemonDataService;
 				self.pokemonCard = pokemonCardData.data;
+				self.pokemonList = [];
 				self.index = 0;
 				self.response = '';
+				self.loading = true;
 
 				self.updateIndex = updateIndex;
 				self.submitResponse = submitResponse;
 				self.checkProgress = checkProgress;
+
+
+				pokemonDataService.getPokemonData()
+					.then(function(response){
+						self.data = response.data.body;
+						self.pokemonList = pokemonDataService.getPokemon(self.data);
+						self.loading = false;
+						updateIndex();
+					});
 
 				function updateIndex() {
 					self.currentPokemon = self.pokemonList[self.index];
@@ -154,9 +168,6 @@
 						$state.go('results');
 					}
 				}
-
-				$timeout(function(){updateIndex();}, 500);
-
 		}]
 	});
 

@@ -51,6 +51,11 @@ body {
 				color: red;
 			}
 
+			&.replay {
+				width: 10em;
+				color: #000;
+			}
+
 			&.submit {
 				max-width: 100%;
 			}
@@ -109,6 +114,7 @@ body {
 	}
 
 	.story-text {
+		color: #000;
 		border: 3px solid #5F7077;
 		background-color: #fff;
 		padding: .382em .618em;

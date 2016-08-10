@@ -31,7 +31,7 @@
 		var generatePokemon = generatePokemon;
 
 		function getPokemonData() {
-			return $http.get('/src/pokemon-with-images.json');
+			return $http.get('/pokemon-master/src/pokemon-with-images.json');
 		}
 
 		function getPokemon(data) {

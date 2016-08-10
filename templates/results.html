@@ -3,16 +3,18 @@
 		<div class="thumbnail">
 			<img ng-src="{{pokemon.imageUrl}}">
 		</div>
-		<div class="name">
-			<div class="name-key">{{pokemon.nameKey}}</div>
-			<div class="response">{{pokemon.response}}</div>
-		</div>
-		<div class="hp">
-			<div class="level">
-				<span>HP</span><div class="bar"></div>
+		<div class="info">
+			<div class="name">
+				<div class="name-key">{{pokemon.nameKey}}</div>
+				<div class="response">{{pokemon.response}}</div>
 			</div>
-			<div class="subtotal" ng-if="pokemon.nameKey !== pokemon.response">0/10</div>
-			<div class="subtotal" ng-if="pokemon.nameKey === pokemon.response">10/10</div>
+			<div class="hp">
+				<div class="level">
+					<span>HP</span><div class="bar"></div>
+				</div>
+				<div class="subtotal" ng-if="pokemon.nameKey !== pokemon.response">0/10</div>
+				<div class="subtotal" ng-if="pokemon.nameKey === pokemon.response">10/10</div>
+			</div>
 		</div>
 	</div>
 	<div class="story-text">

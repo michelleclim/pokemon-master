@@ -119,12 +119,10 @@
 			'pokemonDataService', 
 			'pokemonCardData', 
 			'$state', 
-			'$timeout', 
 			function(
 				pokemonDataService, 
 				pokemonCardData, 
-				$state, 
-				$timeout
+				$state
 			) {
 				var self = this;
 				self.pokemonCard = pokemonCardData.data;

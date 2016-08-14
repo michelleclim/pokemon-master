@@ -4,10 +4,10 @@
 	var app = angular.module('pokemon-app', ['ui.router']);
 
 	app.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/home');
+		$urlRouterProvider.otherwise('/');
 		$stateProvider
 			.state('home', {
-				url: '/home',
+				url: '/',
 				templateUrl: 'templates/main.html'
 			})
 			.state('pokemon', {
@@ -25,6 +25,7 @@
 	app.service('pokemonDataService', ['$http', function($http){
 		var self = this;
 		var pokemonData = [];
+		var idList = [];
 		var pokemonList = [];
 		var getPokemonData = getPokemonData;
 		var getPokemon = getPokemon;
@@ -49,7 +50,12 @@
 		}
 
 		function generatePokemon () {
-			var pokeId = Math.floor(Math.random()*149) + 1;
+			var pokeId;
+			do {
+				pokeId = Math.floor(Math.random()*150);
+			}
+			while (idList.indexOf(pokeId) > -1);
+			idList.push(pokeId)
 			pokemonList.push(pokemonData[pokeId]);
 		}
 
@@ -134,7 +140,6 @@
 				self.updateIndex = updateIndex;
 				self.submitResponse = submitResponse;
 				self.checkProgress = checkProgress;
-
 
 				pokemonDataService.getPokemonData()
 					.then(function(response){

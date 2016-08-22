@@ -162,9 +162,11 @@ body {
           @media (max-width: 640px) {
             body .results .question .info .hp .subtotal {
               align-self: flex-end; } }
-      body .results .question.incorrect .info .response {
+      body .results .question.incorrect .response, body .results .question.partial .response {
         text-decoration: line-through; }
       body .results .question.incorrect .info .level .bar {
         background-color: #B43E15; }
+      body .results .question.partial .info .level .bar {
+        background-color: #FF9500; }
 
 /*# sourceMappingURL=main.css.map */

@@ -233,14 +233,26 @@ body {
 
 			}
 
+			&.incorrect, &.partial {
+				.response {
+					text-decoration: line-through;
+				}
+			}
+
 			&.incorrect {
 				.info {
-					.response {
-						text-decoration: line-through;
-					}
 					.level {
 						.bar {
 							background-color: #B43E15;
+						}
+					}
+				}
+			}
+			&.partial {
+				.info {
+					.level {
+						.bar {
+							background-color: #FF9500;
 						}
 					}
 				}

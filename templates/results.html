@@ -1,5 +1,5 @@
 <section class="results">
-	<div class="question" ng-repeat="pokemon in results.pokemon" ng-class="{incorrect: pokemon.nameKey !== pokemon.response}">
+	<div class="question" ng-repeat="pokemon in results.pokemon" ng-class="{incorrect: pokemon.pointValue < 3, partial: pokemon.pointValue >= 3 && pokemon.pointValue < 9}">
 		<div class="thumbnail">
 			<img ng-src="{{pokemon.imageUrl}}">
 		</div>
@@ -12,8 +12,7 @@
 				<div class="level">
 					<span>HP</span><div class="bar"></div>
 				</div>
-				<div class="subtotal" ng-if="pokemon.nameKey !== pokemon.response">0/10</div>
-				<div class="subtotal" ng-if="pokemon.nameKey === pokemon.response">10/10</div>
+				<div class="subtotal">{{pokemon.pointValue}}/10</div>
 			</div>
 		</div>
 	</div>

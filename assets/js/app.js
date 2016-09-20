@@ -4,10 +4,10 @@
 	var app = angular.module('pokemon-app', ['ui.router']);
 
 	app.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/home');
+		$urlRouterProvider.otherwise('/');
 		$stateProvider
 			.state('home', {
-				url: '/home',
+				url: '/',
 				templateUrl: 'templates/main.html'
 			})
 			.state('pokemon', {
@@ -25,6 +25,7 @@
 	app.service('pokemonDataService', ['$http', function($http){
 		var self = this;
 		var pokemonData = [];
+		var idList = [];
 		var pokemonList = [];
 		var getPokemonData = getPokemonData;
 		var getPokemon = getPokemon;
@@ -49,7 +50,12 @@
 		}
 
 		function generatePokemon () {
-			var pokeId = Math.floor(Math.random()*149) + 1;
+			var pokeId;
+			do {
+				pokeId = Math.floor(Math.random()*150);
+			}
+			while (idList.indexOf(pokeId) > -1);
+			idList.push(pokeId)
 			pokemonList.push(pokemonData[pokeId]);
 		}
 
@@ -71,6 +77,8 @@
 		self.pokemonLevel = '';
 		self.pokemon = pokemonCardData.data;
 		self.pokemonDataService = pokemonDataService;
+		self.similarity = similarity;
+		self.editDistance = editDistance;
 		self.countScore = countScore;
 		self.checkPokemonLevel = checkPokemonLevel;
 		self.replay = replay;
@@ -78,12 +86,52 @@
 		countScore();
 		checkPokemonLevel();
 
+		function similarity(s1, s2) {
+			var longer = s1;
+			var shorter = s2;
+			if (s1.length < s2.length) {
+				longer = s2;
+				shorter = s1;
+			}
+			var longerLength = longer.length;
+			if (longerLength == 0) {
+				return 1.0;
+			}
+			return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+		}
+
+		function editDistance(s1, s2) {
+			s1 = s1.toLowerCase();
+			s2 = s2.toLowerCase();
+
+			var costs = new Array();
+			for (var i = 0; i <= s1.length; i++) {
+				var lastValue = i;
+				for (var j = 0; j <= s2.length; j++) {
+					if (i == 0)
+					costs[j] = j;
+					else {
+					if (j > 0) {
+					var newValue = costs[j - 1];
+					if (s1.charAt(i - 1) != s2.charAt(j - 1))
+					newValue = Math.min(Math.min(newValue, lastValue),
+					costs[j]) + 1;
+					costs[j - 1] = lastValue;
+					lastValue = newValue;
+					}
+					}
+				}
+				if (i > 0)
+				costs[s2.length] = lastValue;
+			}
+			return costs[s2.length];
+		}
+
 		function countScore() {
 
 			for (var i = 0; i < self.pokemon.length; i++) {
-				if (self.pokemon[i].nameKey === self.pokemon[i].response) {
-					self.totalScore+=10;
-				}
+				self.pokemon[i].pointValue = Math.round((self.similarity(self.pokemon[i].nameKey, self.pokemon[i].response))*10);
+				self.totalScore += self.pokemon[i].pointValue;
 			}
 
 			return self.totalScore;
@@ -135,7 +183,6 @@
 				self.submitResponse = submitResponse;
 				self.checkProgress = checkProgress;
 
-
 				pokemonDataService.getPokemonData()
 					.then(function(response){
 						self.data = response.data.body;
@@ -155,7 +202,8 @@
 						nameKey: self.currentPokemon.pokemonName.toLowerCase(),
 						imageUrl: self.currentPokemon.imageUrl,
 						pokedexNumber: self.currentPokemon.nationalPokedexNumber,
-						response: self.response.toLowerCase()
+						response: self.response.toLowerCase(),
+						pointValue: 0
 					});
 					updateIndex();
 					checkProgress();
